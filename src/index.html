@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Electron-練習</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="title-bar">
+    <div class="title">
+      <div class="icon"></div>
+      <div class="text"></div>
+    </div>
+    <div class="buttons">
+      <button class="min">&minus;</button>
+      <button class="max">🗖</button>
+      <button class="close">&times;</button>
+    </div>
+  </div>
+  <div class="container">
+    <fieldset>
+      <legend>typescript出現export is not defined</legend>
+      <div>
+        改成 require("xxx") 即可
+      </div>
+    </fieldset>
+
+    <fieldset id="system-info">
+      <legend>取得系統資訊</legend>
+      <button>取得</button>
+      <div></div>
+    </fieldset>
+
+    <fieldset id="system-notification">
+      <legend>系統通知</legend>
+      <button>通知~</button>
+    </fieldset>
+
+    <!-- <fieldset id="run-cmd">
+      <legend>執行cmd命令</legend>
+      <button>執行</button>
+      <input type="text">
+      <div></div>
+    </fieldset> -->
+
+    <fieldset id="open-dialog">
+      <legend>開啟新視窗</legend>
+      <button>開啟</button>
+      <ul>
+        <li>
+          <input type="checkbox" id="lock-parent">
+          <label for="lock-parent">
+            鎖定父級
+          </label>
+        </li>
+      </ul>
+    </fieldset>
+
+    <fieldset id="run-cmd">
+      <legend>執行cmd</legend>
+      <button>執行</button>
+      <div class="cmd-result">
+      </div>
+      <div class="cmd-input">
+        <input type="text">
+        <button>寫入</button>
+      </div>
+    </fieldset>
+
+    <fieldset id="open-fullscreen">
+      <legend>全螢幕</legend>
+      <button>執行</button>
+    </fieldset>
+
+    <fieldset id="restart-app">
+      <legend>重啟應用程式</legend>
+      <button>執行</button>
+      <ul>
+        <input type="checkbox" id="need-confirm" checked>
+        <label for="need-confirm">是否詢問</label>
+      </ul>
+    </fieldset>
+  </div>
+  <script>
+    require("../dist/renderer.js")
+  </script>
+</body>
+
+</html>

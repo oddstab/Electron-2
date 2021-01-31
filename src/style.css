@@ -1,0 +1,148 @@
+:root {
+  --bg-color: #292a2d;
+}
+
+* {
+  outline: none;
+  font-size: 1.1rem;
+  user-select: none;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: #fff;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  height: calc(100vh - 30px);
+  overflow-y: auto;
+  position: relative;
+  top: 30px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.container::-webkit-scrollbar {
+  width: 15px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #474747;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(187, 187, 187, 0.219);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(187, 187, 187, 0.657);
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: black;
+}
+
+button {
+  color: #fff;
+  background-color: #292a2d;
+  border: 1px solid #fff;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #bfc1c75d;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+.cmd-result {
+  border: 1px solid #000;
+  overflow: hidden;
+  width: 350px;
+  height: 400px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.cmd-result:hover {
+  overflow-y: auto;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+input[type="text"] {
+  border: 1px solid #ccc;
+  background-color: var(--bg-color);
+  color: #fff;
+}
+
+.title-bar {
+  position: fixed;
+  -webkit-app-region: drag;
+  height: 30px;
+  width: 100%;
+  background-color: rgb(58, 58, 58);
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-bar button {
+  display: inline-block;
+  width: 45px;
+  border: none;
+  box-sizing: border-box;
+  background-color: transparent;
+  -webkit-app-region: none;
+  height: 100%;
+}
+
+.title-bar button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.title-bar button:active {
+  transform: none;
+}
+
+.title-bar button.close:hover {
+  background-color: rgb(232, 17, 35);
+}
+
+.title-bar .title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.title-bar .icon {
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.title-bar .text {
+  font-size: 14px;
+}
+
+/* 
+button.max {
+  font-size: 12px;
+  position: relative;
+  top: -1px;
+} */
