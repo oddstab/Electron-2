@@ -15,7 +15,7 @@ function createWindow() {
     backgroundColor: "red",
     width: 1000,
     show: false,
-    frame: false,
+    // frame: false,
     icon: path.join(__dirname, "../src/favicon.ico"),
   });
 

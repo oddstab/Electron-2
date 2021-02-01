@@ -15,7 +15,7 @@ const { BrowserWindow, dialog } = remote;
 const SCROLL_POS = "__SCROLL_TOP__";
 
 let isFullScreen = false; //是否為全螢幕
-// let terminal: ChildProcess = null; //終端機
+let terminal: ChildProcessWithoutNullStreams = null; //終端機
 
 function addPart(id: string, func: () => void) {
   document.querySelector(`#${id} > button`).addEventListener("click", func);
@@ -137,64 +137,78 @@ addPart("open-dialog", () => {
 
 //執行cmd
 addPart("run-cmd", () => {
-  ipcRenderer.send("fuck", "test");
-  // console.log(pty);
+  if (terminal && terminal.exitCode == null) {
+    return;
+  }
 
-  // 在windows下的用法
-  // let t = spawn("cmd", [
-  //   "/c",
-  //   "C:\\Users\\User\\Desktop\\TestApp\\Test\\Test\\bin\\Debug\\netcoreapp3.1\\Test.exe",
-  // ],{
-  //   stdio:"pipe"
-  // });
+  function updateCmdResult(text: string) {
+    text = text.replace(/\r\n/gi, "<br/>");
 
-  return;
-  let s = new Writable();
+    document.querySelector(".cmd-result").innerHTML += text + "<br/>";
 
-  s._write = function (data) {
-    console.log(data.toString());
-  };
+    console.log(document.querySelector(".cmd-result").scrollHeight);
+    document
+      .querySelector(".cmd-result")
+      .scrollTo({ top: document.querySelector(".cmd-result").scrollHeight });
+  }
 
-  let t = spawn(
-    "cmd",
-    [
-      "/c",
-      "C:\\Users\\User\\Desktop\\TestApp\\Test\\Test\\bin\\Debug\\netcoreapp3.1\\Test.exe",
-    ],
-    {
-      stdio: ["pipe", "inherit", "inherit"],
+  function clearCmdResult() {
+    document.querySelector(".cmd-result").innerHTML = "";
+  }
+
+  let cmd =
+    "C:/Users/User/Desktop/TestApp/Test/Test/bin/Debug/netcoreapp3.1/Test.exe";
+
+  let cmd1 =
+    "C:/Program Files (x86)/Steam/SteamApps/common/Don't Starve Together Dedicated Server/bin/dontstarve_dedicated_server_nullrenderer.exe";
+
+  let proc = spawn(cmd, ["-console,", "-cluster DST_Server", "-shard Master"]);
+  proc.on("exit", (code) => {
+    console.log("exit code:", code);
+    clearCmdResult();
+  });
+
+  proc.stdout.on("data", (data) => {
+    let buffer = Buffer.from(data);
+    let str = iconv.decode(buffer, "utf-8");
+    console.log("on data:", str);
+    updateCmdResult(str);
+  });
+
+  proc.stdin.setDefaultEncoding("utf8");
+  proc.stdout.setEncoding("utf8");
+
+  terminal = proc;
+
+  let btn: HTMLButtonElement = document.querySelector("#check-cmd");
+  btn.disabled = false;
+  btn.addEventListener("click", () => {
+    console.log(terminal);
+  });
+
+  let resetBtn: HTMLButtonElement = document.querySelector("#run-cmd .reset");
+
+  resetBtn.addEventListener("click", () => {
+    terminal = null;
+    btn.disabled = true;
+    btn.removeEventListener("click", () => {
+      console.log(terminal);
+    });
+  });
+
+  let inputBtn: HTMLButtonElement = document.querySelector(".cmd-input>button");
+  inputBtn.addEventListener("click", () => {
+    let val = (document.querySelector(".cmd-input>input") as HTMLInputElement)
+      .value;
+
+    if (!val) {
+      return;
     }
-  );
 
-  t.stdin.pipe(s);
+    terminal.stdin.write(val + "\r\n");
+  });
 
-  t.stdin.write("QQ\r\n");
-
-  // t.stdin.on("pipe", (src) => console.log(src));
-
-  // t.stdout.on("data", (data) => {
-  //   console.log(data.toString());
-  //   // console.log(iconv.decode(data, "cp950"));
-  //   // t.stdin.write("ha\r\n");
-  // });
-
-  // t.stderr.on("data", (err) => {
-  //   console.log(iconv.decode(err, "cp950"));
-  // });
-
-  // // process.stdin.pipe(t.stdin);
-
-  // document
-  //   .querySelector("#run-exe>.cmd-input>button")
-  //   .addEventListener("click", () => {
-  //     let { value: text }: HTMLInputElement = document.querySelector(
-  //       "#run-exe>.cmd-input>input"
-  //     );
-
-  //     t.stdin.write(text + "\r\n", "utf-8");
-  //     t.stdin.end();
-  //     // t.stdin.end("ASD");
-  //   });
+  console.log("ending");
 });
 
 //全螢幕

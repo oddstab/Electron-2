@@ -24,7 +24,7 @@ body {
   box-sizing: border-box;
 }
 
-.container::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 15px;
   cursor: pointer;
 }
@@ -64,14 +64,23 @@ button:active {
   transform: translateY(1px);
 }
 
+button:disabled {
+  background-color: #808080b3;
+  border: gray 1px solid;
+  color: #9c9c9c;
+  cursor: not-allowed;
+}
+
 .cmd-result {
   border: 1px solid #000;
-  overflow: hidden;
-  width: 350px;
+  overflow: overlay;
   height: 400px;
   margin-top: 10px;
   border: 1px solid #ccc;
   margin-bottom: 10px;
+  box-sizing: border-box;
+  user-select: unset;
+  cursor: url(../src/GawrGuraMousecursor/normal.ani);
 }
 
 .cmd-result:hover {
