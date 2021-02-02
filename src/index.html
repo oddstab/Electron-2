@@ -68,6 +68,7 @@
       <div class="cmd-input">
         <input type="text">
         <button>寫入</button>
+        <p>最後輸出：</p>
       </div>
     </fieldset>
 
@@ -84,7 +85,13 @@
         <label for="need-confirm">是否詢問</label>
       </ul>
     </fieldset>
+
+    <fieldset id="open-terminal">
+      <legend>使用終端機</legend>
+      <button>執行</button>
+    </fieldset>
   </div>
+  <div id="terminal-root"></div>
   <script>
     require("../dist/renderer.js")
   </script>

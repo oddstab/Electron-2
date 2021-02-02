@@ -115,26 +115,12 @@
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.5.tgz#b14efa8852b7768d898906613c23f688713e02cd"
   integrity sha512-Q1y515GcOdTHgagaVFhHnIFQ38ygs/kmxdNpvpou+raI9UO3YZcHDngBSYKQklcKlvA7iuQlmIKbzvmxcOE9CQ==
 
-"@types/electron-builder@^2.8.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@types/electron-builder/-/electron-builder-2.8.0.tgz#b4fe5efa910fc8287fcc8ec6e214cdcfa87405d6"
-  integrity sha1-tP5e+pEPyCh/zI7G4hTNz6h0BdY=
-  dependencies:
-    electron-builder "*"
-
 "@types/electron-is-dev@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/electron-is-dev/-/electron-is-dev-1.1.1.tgz#b48cb249b4615915b16477891160414b57b9a8c5"
   integrity sha512-axJ7z6N/FfXHf0Q6MO75Sl7gXCqAeIJMxxYd8n80FNmGev8GPHMcva31zQQX+i4B7aBUzdyVY1UfQeFxph3xVQ==
   dependencies:
     electron-is-dev "*"
-
-"@types/electron@^1.6.10":
-  version "1.6.10"
-  resolved "https://registry.yarnpkg.com/@types/electron/-/electron-1.6.10.tgz#7e87888ed3888767cca68e92772c2c8ea46bc873"
-  integrity sha512-MOCVyzIwkBEloreoCVrTV108vSf8fFIJPsGruLCoAoBZdxtnJUqKA4lNonf/2u1twSjAspPEfmEheC+TLm/cMw==
-  dependencies:
-    electron "*"
 
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
@@ -181,6 +167,13 @@
   integrity sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==
   dependencies:
     "@types/node" "*"
+
+"@types/xterm@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/xterm/-/xterm-3.0.0.tgz#5b177010903ee1dc26fdc25d6e4e1f2490d44ce6"
+  integrity sha512-+VaAJQmE7E1d1ebkIh/Zdc2mbXBVwxZGGSgqwzDPpk/HKo0mNT+iX5ZrnswztHSV+CDV+bURl7Yg7PWF7IZfXQ==
+  dependencies:
+    xterm "*"
 
 "@types/yargs-parser@*":
   version "20.2.0"
@@ -946,7 +939,7 @@ ejs@^3.1.5:
   dependencies:
     jake "^10.6.1"
 
-electron-builder@*, electron-builder@^22.9.1:
+electron-builder@^22.9.1:
   version "22.9.1"
   resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-22.9.1.tgz#a2962db6f2757bc01d02489f38fafe0809f68f60"
   integrity sha512-GXPt8l5Mxwm1QKYopUM6/Tdh9W3695G6Ax+IFyj5pQ51G4SD5L1uq4/RkPSsOgs3rP7jNSV6g6OfDzdtVufPdA==
@@ -1003,7 +996,7 @@ electron-rebuild@^2.3.4:
     tar "^6.0.5"
     yargs "^16.0.0"
 
-electron@*, electron@^11.2.1:
+electron@^11.2.1:
   version "11.2.1"
   resolved "https://registry.yarnpkg.com/electron/-/electron-11.2.1.tgz#8641dd1a62911a1144e0c73c34fd9f37ccc65c2b"
   integrity sha512-Im1y29Bnil+Nzs+FCTq01J1OtLbs+2ZGLLllaqX/9n5GgpdtDmZhS/++JHBsYZ+4+0n7asO+JKQgJD+CqPClzg==
@@ -3131,6 +3124,11 @@ xdg-basedir@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-4.0.0.tgz#4bc8d9984403696225ef83a1573cbbcb4e79db13"
   integrity sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==
+
+xterm@*, xterm@^4.10.0:
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.10.0.tgz#fc4f554e3e718aff9b83622e858e64b0953067bb"
+  integrity sha512-Wn66I8YpSVkgP3R95GjABC6Eb21pFfnCSnyIqKIIoUI13ohvwd0KGVzUDfyEFfSAzKbPJfrT2+vt7SfUXBZQKQ==
 
 y18n@^5.0.5:
   version "5.0.5"

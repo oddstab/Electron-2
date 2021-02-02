@@ -13,7 +13,7 @@ function createWindow() {
       enableRemoteModule: true,
     },
     backgroundColor: "red",
-    width: 1000,
+    width: 1200,
     show: false,
     // frame: false,
     icon: path.join(__dirname, "../src/favicon.ico"),
@@ -27,23 +27,24 @@ function createWindow() {
 
   mainWindow.on("ready-to-show", () => mainWindow.show());
 
-  // let ptyProcess = pty.spawn("powershell.exe", [], {
-  //   name: "xterm-color",
-  //   cols: 80,
-  //   rows: 24,
-  //   cwd: process.env.HOME,
-  //   env: process.env,
-  // });
+  let ptyProcess = pty.spawn("powershell.exe", [], {
+    name: "xterm-color",
+    cols: 80,
+    rows: 24,
+    cwd: process.env.HOME,
+    env: process.env,
+  });
 
-  // ptyProcess.onData((data) => {
-  //   console.log(data);
-  // });
+  ptyProcess.onData((data) => {
+    console.log(data);
+    mainWindow.webContents.send("t.get", data);
+  });
 
-  // ipcMain.on("fuck-node-pty", (e, arg) => {
-  //   console.log(e, arg);
-  // });
+  ipcMain.on("t.get.key", (e, arg) => {
+    console.log(e, arg);
+  });
 
-  // console.log("pty是:", typeof ptyProcess);
+  console.log("pty是:", typeof ptyProcess);
 }
 
 app.on("ready", () => {

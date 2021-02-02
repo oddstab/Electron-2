@@ -6,16 +6,18 @@ import {
   ChildProcessWithoutNullStreams,
 } from "child_process";
 import { remote, ipcRenderer } from "electron";
-import * as iconv from "iconv-lite";
+import { decode } from "iconv-lite";
 import * as path from "path";
 import * as fs from "fs";
 import * as pty from "node-pty";
+import { Terminal } from "xterm";
 
 const { BrowserWindow, dialog } = remote;
 const SCROLL_POS = "__SCROLL_TOP__";
 
 let isFullScreen = false; //是否為全螢幕
 let terminal: ChildProcessWithoutNullStreams = null; //終端機
+let lastOutput: string = "";
 
 function addPart(id: string, func: () => void) {
   document.querySelector(`#${id} > button`).addEventListener("click", func);
@@ -141,6 +143,11 @@ addPart("run-cmd", () => {
     return;
   }
 
+  function updateLastOutput(text: string) {
+    lastOutput = text;
+    document.querySelector(".cmd-input>p").innerHTML = text;
+  }
+
   function updateCmdResult(text: string) {
     text = text.replace(/\r\n/gi, "<br/>");
 
@@ -159,10 +166,26 @@ addPart("run-cmd", () => {
   let cmd =
     "C:/Users/User/Desktop/TestApp/Test/Test/bin/Debug/netcoreapp3.1/Test.exe";
 
-  let cmd1 =
-    "C:/Program Files (x86)/Steam/SteamApps/common/Don't Starve Together Dedicated Server/bin/dontstarve_dedicated_server_nullrenderer.exe";
+  let cmd1 = `cd /D "C:/Program Files (x86)/Steam/SteamApps/common/Don't Starve Together Dedicated Server/bin"`;
 
-  let proc = spawn(cmd, ["-console,", "-cluster DST_Server", "-shard Master"]);
+  let proc = spawn(
+    "cmd.exe",
+    [
+      "/c",
+      // "C:/Users/PC206/Desktop/ConsoleApp1/ConsoleApp1/bin/Debug/ConsoleApp1.exe",
+      // "dir && C:/Users/PC206/Desktop/ConsoleApp1/ConsoleApp1/bin/Debug/ConsoleApp1.exe -dd",
+      // "dir",
+      // "chdir",
+      "dontstarve_dedicated_server_nullrenderer.exe -console -cluster DST_Server -shard Caves",
+    ] /* , ["-console,", "-cluster DST_Server", "-shard Master"] */,
+    {
+      cwd:
+        "C:/Program Files (x86)/Steam/SteamApps/common/Don't Starve Together Dedicated Server/bin",
+    }
+  );
+
+  proc.send;
+
   proc.on("exit", (code) => {
     console.log("exit code:", code);
     clearCmdResult();
@@ -170,9 +193,12 @@ addPart("run-cmd", () => {
 
   proc.stdout.on("data", (data) => {
     let buffer = Buffer.from(data);
-    let str = iconv.decode(buffer, "utf-8");
-    console.log("on data:", str);
-    updateCmdResult(str);
+    // console.log(buffer);
+    let str = decode(buffer, "utf-8");
+    console.log(str);
+    updateLastOutput(str);
+    // console.log("on data:", str);
+    // updateCmdResult(str);
   });
 
   proc.stdin.setDefaultEncoding("utf8");
@@ -207,8 +233,6 @@ addPart("run-cmd", () => {
 
     terminal.stdin.write(val + "\r\n");
   });
-
-  console.log("ending");
 });
 
 //全螢幕
@@ -229,4 +253,17 @@ addPart("restart-app", () => {
   ) as HTMLInputElement).checked;
 
   ipcRenderer.send("restart-app", needConfirm);
+});
+
+addPart("open-terminal", () => {
+  let terminalWindow = new BrowserWindow({
+    width: 850,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+
+  terminalWindow.loadFile(path.join(__dirname, "../src/terminal.html"));
+  terminalWindow.webContents.openDevTools();
 });

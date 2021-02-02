@@ -33,10 +33,12 @@
   },
   "dependencies": {
     "@types/electron-is-dev": "^1.1.1",
+    "@types/xterm": "^3.0.0",
     "electron-is-dev": "^1.2.0",
     "iconv-lite": "^0.6.2",
     "node-pty": "^0.9.0",
-    "suppose": "^0.6.2"
+    "suppose": "^0.6.2",
+    "xterm": "^4.10.0"
   },
   "build": {
     "appId": "test.app",
