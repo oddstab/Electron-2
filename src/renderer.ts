@@ -5,12 +5,14 @@ import {
   ChildProcess,
   ChildProcessWithoutNullStreams,
 } from "child_process";
-import { remote, ipcRenderer } from "electron";
+import { remote, ipcRenderer, ipcMain } from "electron";
 import { decode } from "iconv-lite";
 import * as path from "path";
 import * as fs from "fs";
 import * as pty from "node-pty";
 import { Terminal } from "xterm";
+
+ipcRenderer.send("GET_KEY", "哈哈");
 
 const { BrowserWindow, dialog } = remote;
 const SCROLL_POS = "__SCROLL_TOP__";
@@ -266,4 +268,61 @@ addPart("open-terminal", () => {
 
   terminalWindow.loadFile(path.join(__dirname, "../src/terminal.html"));
   terminalWindow.webContents.openDevTools();
+});
+
+addPart("read-file", () => {
+  let fileName = path.join(__dirname, "../src/terminal.html");
+  fs.readFile(fileName, (_, data) => {
+    console.log(data.toString());
+  });
+});
+
+let readFileEl: HTMLFieldSetElement = document.querySelector("#read-file");
+
+readFileEl.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+});
+
+readFileEl.addEventListener("dragenter", () => {
+  if (!readFileEl.querySelector("p").classList.contains("active")) {
+    readFileEl.querySelector("p").classList.add("active");
+  }
+});
+
+readFileEl.addEventListener("dragexit", () => {
+  readFileEl.querySelector("p").classList.remove("active");
+});
+
+readFileEl.addEventListener("drop", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  readFileEl.querySelector("p").classList.remove("active");
+  let file = fs.readFileSync(e.dataTransfer.files[0].path);
+
+  console.log(file);
+  console.log(file.toString("base64"));
+
+  let i = new Image();
+  i.onload = (e) => {
+    console.log(i.width + "," + i.height);
+    let newWindow = new BrowserWindow({
+      width: i.width,
+      height: i.height,
+      autoHideMenuBar: true,
+      webPreferences: {
+        preload: path.join(__dirname, "./show-img-preload.js"),
+        nodeIntegration: true,
+      },
+    });
+
+    newWindow.loadFile(path.join(__dirname, "../src/show-img.html"));
+
+    newWindow.webContents.openDevTools();
+
+    ipcRenderer.send("send-img2main", "fff");
+  };
+
+  i.src = "data:image/png;base64, " + file.toString("base64");
 });

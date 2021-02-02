@@ -27,24 +27,24 @@ function createWindow() {
 
   mainWindow.on("ready-to-show", () => mainWindow.show());
 
-  let ptyProcess = pty.spawn("powershell.exe", [], {
-    name: "xterm-color",
-    cols: 80,
-    rows: 24,
-    cwd: process.env.HOME,
-    env: process.env,
-  });
+  // let ptyProcess = pty.spawn("powershell.exe", [], {
+  //   name: "xterm-color",
+  //   cols: 80,
+  //   rows: 24,
+  //   cwd: process.env.HOME,
+  //   env: process.env,
+  // });
 
-  ptyProcess.onData((data) => {
-    console.log(data);
-    mainWindow.webContents.send("t.get", data);
-  });
+  // ptyProcess.onData((data) => {
+  //   console.log(data);
+  //   mainWindow.webContents.send("t.get", data);
+  // });
 
-  ipcMain.on("t.get.key", (e, arg) => {
-    console.log(e, arg);
-  });
+  // ipcMain.on("GET_KEY", (e, arg) => {
+  //   console.log(e, arg);
+  // });
 
-  console.log("pty是:", typeof ptyProcess);
+  // console.log("pty is:", typeof ptyProcess);
 }
 
 app.on("ready", () => {
@@ -87,4 +87,12 @@ ipcMain.on("restart-app", (e, needConfirm) => {
     app.relaunch();
     app.exit();
   }
+});
+
+ipcMain.on("send-img2main", (e, val) => {
+  // console.log(val);
+  setInterval(() => {
+    console.log("send");
+    mainWindow.webContents.send("get-img", val);
+  }, 1000);
 });
