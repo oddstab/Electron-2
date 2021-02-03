@@ -4,6 +4,7 @@ import * as isDev from "electron-is-dev";
 import * as pty from "node-pty";
 
 let mainWindow: BrowserWindow = null;
+let ptyProcess: pty.IPty = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -27,7 +28,7 @@ function createWindow() {
 
   mainWindow.on("ready-to-show", () => mainWindow.show());
 
-  // let ptyProcess = pty.spawn("powershell.exe", [], {
+  // ptyProcess = pty.spawn("powershell.exe", [], {
   //   name: "xterm-color",
   //   cols: 80,
   //   rows: 24,
@@ -36,15 +37,13 @@ function createWindow() {
   // });
 
   // ptyProcess.onData((data) => {
-  //   console.log(data);
-  //   mainWindow.webContents.send("t.get", data);
+  //   mainWindow.webContents.send("terminal.incomingData", data);
+  //   console.log("data sent:", data);
   // });
 
-  // ipcMain.on("GET_KEY", (e, arg) => {
-  //   console.log(e, arg);
+  // ipcMain.on("terminal.keystroke", (e, arg) => {
+  //   ptyProcess.write(arg);
   // });
-
-  // console.log("pty is:", typeof ptyProcess);
 }
 
 app.on("ready", () => {
@@ -89,10 +88,34 @@ ipcMain.on("restart-app", (e, needConfirm) => {
   }
 });
 
-ipcMain.on("send-img2main", (e, val) => {
-  // console.log(val);
-  setInterval(() => {
-    console.log("send");
-    mainWindow.webContents.send("get-img", val);
-  }, 1000);
+ipcMain.on("send-img2main", (e, val) => {});
+
+ipcMain.on("open-terminal", (e, data) => {
+  let terminalWindow = new BrowserWindow({
+    width: 850,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+
+  terminalWindow.loadFile(path.join(__dirname, "../src/terminal.html"));
+  terminalWindow.webContents.openDevTools();
+
+  ptyProcess = pty.spawn("powershell.exe", [], {
+    name: "xterm-color",
+    cols: 80,
+    rows: 50,
+    cwd: process.env.HOME,
+    env: process.env,
+  });
+
+  ptyProcess.onData((data) => {
+    terminalWindow.webContents.send("terminal.incomingData", data);
+    console.log("data sent:", data);
+  });
+
+  ipcMain.on("terminal.keystroke", (e, arg) => {
+    ptyProcess.write(arg);
+  });
 });

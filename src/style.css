@@ -24,11 +24,16 @@ body {
   box-sizing: border-box;
   flex-wrap: wrap;
   width: 100vw;
+  display: flex;
 }
 
 fieldset {
-  display: block;
-  flex: 0 1 50%;
+  box-sizing: border-box;
+  flex: 0 1 100%;
+}
+
+.col-5 {
+  flex: 0 1 calc((100% - 8.5px) / 2);
 }
 
 ::-webkit-scrollbar {

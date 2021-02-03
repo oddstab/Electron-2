@@ -258,16 +258,7 @@ addPart("restart-app", () => {
 });
 
 addPart("open-terminal", () => {
-  let terminalWindow = new BrowserWindow({
-    width: 850,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-    },
-  });
-
-  terminalWindow.loadFile(path.join(__dirname, "../src/terminal.html"));
-  terminalWindow.webContents.openDevTools();
+  ipcRenderer.send("open-terminal");
 });
 
 addPart("read-file", () => {

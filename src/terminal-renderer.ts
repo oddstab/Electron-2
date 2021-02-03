@@ -4,9 +4,11 @@ import { ipcRenderer } from "electron";
 let t = new Terminal();
 
 t.open(document.querySelector("#terminal"));
-t.write("Hello");
 
 t.onData((e) => {
-  console.log(e);
-  ipcRenderer.send("GET_KEY", e);
+  ipcRenderer.send("terminal.keystroke", e);
+});
+
+ipcRenderer.on("terminal.incomingData", (e, val) => {
+  t.write(val);
 });

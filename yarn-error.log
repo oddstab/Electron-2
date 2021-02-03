@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js remove node-pty
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add windows-registry
 
 PATH: 
-  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Windows Kits\8.0\Windows Performance Toolkit\;C:\Program Files (x86)\Yarn\bin\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Users\User\AppData\Local\Android\Sdk\platform-tools;C:\Users\User\AppData\Local\Android\Sdk\emulator;C:\Users\User\AppData\Local\Android\Sdk\tools;C:\Users\User\AppData\Local\Android\Sdk\tools\bin;C:\Program Files\Java\jdk1.8.0_221\bin;C:\Users\User\AppData\Roaming\ydl;;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\nodejs\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Users\User\.windows-build-tools\python27\;C:\Users\User\AppData\Local\Microsoft\WindowsApps;C:\Users\User\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\User\.dotnet\tools;C:\Program Files\JetBrains\IntelliJ IDEA 2019.3.2\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.3.2\bin;C:\Program Files\LUA;C:\Users\User\AppData\Local\Yarn\bin;C:\Users\User\AppData\Local\Microsoft\WindowsApps;C:\Users\User\AppData\Local\Programs\Microsoft VS Code Insiders\bin;C:\Users\User\.dotnet\tools;C:\Users\User\AppData\Local\Programs\Fiddler;C:\Users\User\AppData\Local\Programs\Azure Data Studio\bin;C:\Users\User\.dotnet\tools;C:\Users\User\AppData\Local\Android\Sdk;C:\Users\User\Desktop\Pixeval;C:\Users\User\.dotnet\tools;C:\Users\User\AppData\Roaming\npm
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk1.8.0_221\bin;C:\Program Files (x86)\dotnet\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Program Files\PuTTY\;D:\softwares\ydl\;;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\nodejs\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Users\PC206\.windows-build-tools\python27\;C:\Users\PC206\AppData\Local\Microsoft\WindowsApps;C:\Users\PC206\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\PC206\.dotnet\tools;C:\Users\PC206\AppData\Local\Yarn\bin;C:\Users\PC206\.dotnet\tools;C:\Users\PC206\AppData\Roaming\npm
 
 Yarn version: 
   1.22.4
@@ -14,20 +14,21 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EBUSY: resource busy or locked, unlink 'P:\GitHub\my-electron\node_modules\electron\dist\icudtl.dat'
+  Error: EBUSY: resource busy or locked, unlink 'E:\GitHub\Electron-2\node_modules\electron\dist\icudtl.dat'
 
 npm manifest: 
   {
     "name": "electron-quick-start-typescript",
     "version": "1.0.0",
     "description": "A minimal Electron application written with Typescript",
+    "main": "./dist/main.js",
     "scripts": {
       "build": "tsc",
       "watch": "tsc -w",
       "lint": "eslint -c .eslintrc --ext .ts ./src",
       "start": "yarn build && electron ./dist/main.js",
       "rebuild": "electron-rebuild",
-      "postinstall": "electron-builder install-app-deps"
+      "dist": "electron-builder"
     },
     "repository": "https://github.com/electron/electron-quick-start-typescript",
     "keywords": [
@@ -43,19 +44,32 @@ npm manifest:
     "devDependencies": {
       "@typescript-eslint/eslint-plugin": "^3.4.0",
       "@typescript-eslint/parser": "^3.4.0",
+      "electron": "^11.2.1",
+      "electron-builder": "^22.9.1",
       "electron-rebuild": "^2.3.4",
       "eslint": "^7.3.1",
       "typescript": "^3.9.5"
     },
     "dependencies": {
-      "@types/electron": "^1.6.10",
-      "@types/electron-builder": "^2.8.0",
       "@types/electron-is-dev": "^1.1.1",
-      "electron": "^11.2.1",
-      "electron-builder": "^22.9.1",
+      "@types/xterm": "^3.0.0",
+      "bootstrap": "^4.6.0",
       "electron-is-dev": "^1.2.0",
       "iconv-lite": "^0.6.2",
-      "suppose": "^0.6.2"
+      "node-pty": "^0.9.0",
+      "regedit": "^3.0.3",
+      "suppose": "^0.6.2",
+      "xterm": "^4.10.0"
+    },
+    "build": {
+      "appId": "test.app",
+      "productName": "Electron-練習",
+      "directories": {
+        "output": "build"
+      },
+      "win": {
+        "icon": "./src/favicon.ico"
+      }
     }
   }
 
@@ -180,26 +194,12 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.5.tgz#b14efa8852b7768d898906613c23f688713e02cd"
     integrity sha512-Q1y515GcOdTHgagaVFhHnIFQ38ygs/kmxdNpvpou+raI9UO3YZcHDngBSYKQklcKlvA7iuQlmIKbzvmxcOE9CQ==
   
-  "@types/electron-builder@^2.8.0":
-    version "2.8.0"
-    resolved "https://registry.yarnpkg.com/@types/electron-builder/-/electron-builder-2.8.0.tgz#b4fe5efa910fc8287fcc8ec6e214cdcfa87405d6"
-    integrity sha1-tP5e+pEPyCh/zI7G4hTNz6h0BdY=
-    dependencies:
-      electron-builder "*"
-  
   "@types/electron-is-dev@^1.1.1":
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/@types/electron-is-dev/-/electron-is-dev-1.1.1.tgz#b48cb249b4615915b16477891160414b57b9a8c5"
     integrity sha512-axJ7z6N/FfXHf0Q6MO75Sl7gXCqAeIJMxxYd8n80FNmGev8GPHMcva31zQQX+i4B7aBUzdyVY1UfQeFxph3xVQ==
     dependencies:
       electron-is-dev "*"
-  
-  "@types/electron@^1.6.10":
-    version "1.6.10"
-    resolved "https://registry.yarnpkg.com/@types/electron/-/electron-1.6.10.tgz#7e87888ed3888767cca68e92772c2c8ea46bc873"
-    integrity sha512-MOCVyzIwkBEloreoCVrTV108vSf8fFIJPsGruLCoAoBZdxtnJUqKA4lNonf/2u1twSjAspPEfmEheC+TLm/cMw==
-    dependencies:
-      electron "*"
   
   "@types/eslint-visitor-keys@^1.0.0":
     version "1.0.0"
@@ -246,6 +246,13 @@ Lockfile:
     integrity sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==
     dependencies:
       "@types/node" "*"
+  
+  "@types/xterm@^3.0.0":
+    version "3.0.0"
+    resolved "https://registry.yarnpkg.com/@types/xterm/-/xterm-3.0.0.tgz#5b177010903ee1dc26fdc25d6e4e1f2490d44ce6"
+    integrity sha512-+VaAJQmE7E1d1ebkIh/Zdc2mbXBVwxZGGSgqwzDPpk/HKo0mNT+iX5ZrnswztHSV+CDV+bURl7Yg7PWF7IZfXQ==
+    dependencies:
+      xterm "*"
   
   "@types/yargs-parser@*":
     version "20.2.0"
@@ -547,6 +554,11 @@ Lockfile:
     version "3.0.2"
     resolved "https://registry.yarnpkg.com/boolean/-/boolean-3.0.2.tgz#df1baa18b6a2b0e70840475e1d93ec8fe75b2570"
     integrity sha512-RwywHlpCRc3/Wh81MiCKun4ydaIFyW5Ea6JbL6sRCVx5q5irDw7pMXBUFYF/jArQ6YrG36q0kpovc9P/Kd3I4g==
+  
+  bootstrap@^4.6.0:
+    version "4.6.0"
+    resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.6.0.tgz#97b9f29ac98f98dfa43bf7468262d84392552fd7"
+    integrity sha512-Io55IuQY3kydzHtbGvQya3H+KorS/M9rSNyfCGCg9WZ4pyT/lCxIlpJgG1GXW/PswzC84Tr2fBYi+7+jFVQQBw==
   
   boxen@^4.2.0:
     version "4.2.0"
@@ -1011,7 +1023,7 @@ Lockfile:
     dependencies:
       jake "^10.6.1"
   
-  electron-builder@*, electron-builder@^22.9.1:
+  electron-builder@^22.9.1:
     version "22.9.1"
     resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-22.9.1.tgz#a2962db6f2757bc01d02489f38fafe0809f68f60"
     integrity sha512-GXPt8l5Mxwm1QKYopUM6/Tdh9W3695G6Ax+IFyj5pQ51G4SD5L1uq4/RkPSsOgs3rP7jNSV6g6OfDzdtVufPdA==
@@ -1068,7 +1080,7 @@ Lockfile:
       tar "^6.0.5"
       yargs "^16.0.0"
   
-  electron@*, electron@^11.2.1:
+  electron@^11.2.1:
     version "11.2.1"
     resolved "https://registry.yarnpkg.com/electron/-/electron-11.2.1.tgz#8641dd1a62911a1144e0c73c34fd9f37ccc65c2b"
     integrity sha512-Im1y29Bnil+Nzs+FCTq01J1OtLbs+2ZGLLllaqX/9n5GgpdtDmZhS/++JHBsYZ+4+0n7asO+JKQgJD+CqPClzg==
@@ -1639,6 +1651,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
     integrity sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==
   
+  if-async@^3.7.4:
+    version "3.7.4"
+    resolved "https://registry.yarnpkg.com/if-async/-/if-async-3.7.4.tgz#55868deb0093d3c67bf7166e745353fb9bcb21a2"
+    integrity sha1-VYaN6wCT08Z79xZudFNT+5vLIaI=
+  
   ignore-walk@^3.0.1:
     version "3.0.3"
     resolved "https://registry.yarnpkg.com/ignore-walk/-/ignore-walk-3.0.3.tgz#017e2447184bfeade7c238e4aefdd1e8f95b1e37"
@@ -1677,7 +1694,7 @@ Lockfile:
       once "^1.3.0"
       wrappy "1"
   
-  inherits@2, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.3:
+  inherits@2, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.1, inherits@~2.0.3:
     version "2.0.4"
     resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
     integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
@@ -1777,6 +1794,11 @@ Lockfile:
     version "0.3.0"
     resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.3.0.tgz#d502d3382590ea3004893746754c89139973e232"
     integrity sha512-VjSeb/lHmkoyd8ryPVIKvOCn4D1koMqY+vqyjjUfc3xyKtP4dYOxM44sZrnqQSzSds3xyOrUTLTC9LVCVgLngw==
+  
+  isarray@0.0.1:
+    version "0.0.1"
+    resolved "https://registry.yarnpkg.com/isarray/-/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"
+    integrity sha1-ihis/Kmo9Bd+Cav8YDiTmwXR7t8=
   
   isarray@~1.0.0:
     version "1.0.0"
@@ -2450,6 +2472,16 @@ Lockfile:
       json5 "^2.1.2"
       lazy-val "^1.0.4"
   
+  "readable-stream@>=1.0.33-1 <1.1.0-0":
+    version "1.0.34"
+    resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.0.34.tgz#125820e34bc842d2f2aaafafe4c2916ee32c157c"
+    integrity sha1-Elgg40vIQtLyqq+v5MKRbuMsFXw=
+    dependencies:
+      core-util-is "~1.0.0"
+      inherits "~2.0.1"
+      isarray "0.0.1"
+      string_decoder "~0.10.x"
+  
   readable-stream@^2.0.6, readable-stream@^2.2.2, readable-stream@^2.3.5:
     version "2.3.7"
     resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.7.tgz#1eca1cf711aef814c04f62252a36a62f6cb23b57"
@@ -2471,6 +2503,16 @@ Lockfile:
       inherits "^2.0.3"
       string_decoder "^1.1.1"
       util-deprecate "^1.0.1"
+  
+  regedit@^3.0.3:
+    version "3.0.3"
+    resolved "https://registry.yarnpkg.com/regedit/-/regedit-3.0.3.tgz#0c2188e15f670de7d5740c5cea9bbebe99497749"
+    integrity sha512-SpHmMKOtiEYx0MiRRC48apBsmThoZ4svZNsYoK8leHd5bdUHV1nYb8pk8gh6Moou7/S9EDi1QsjBTpyXVQrPuQ==
+    dependencies:
+      debug "^4.1.0"
+      if-async "^3.7.4"
+      stream-slicer "0.0.6"
+      through2 "^0.6.3"
   
   regexpp@^3.0.0, regexpp@^3.1.0:
     version "3.1.0"
@@ -2768,6 +2810,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/stat-mode/-/stat-mode-1.0.0.tgz#68b55cb61ea639ff57136f36b216a291800d1465"
     integrity sha512-jH9EhtKIjuXZ2cWxmXS8ZP80XyC3iasQxMDV8jzhNJpfDb7VbQLVW4Wvsxz9QZvzV+G4YoSfBUVKDOyxLzi/sg==
   
+  stream-slicer@0.0.6:
+    version "0.0.6"
+    resolved "https://registry.yarnpkg.com/stream-slicer/-/stream-slicer-0.0.6.tgz#f86b2ac5c2440b7a0a87b71f33665c0788046138"
+    integrity sha1-+GsqxcJEC3oKh7cfM2ZcB4gEYTg=
+  
   string-width@^1.0.1:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/string-width/-/string-width-1.0.2.tgz#118bdf5b8cdc51a2a7e70d211e07e2b0b9b107d3"
@@ -2814,6 +2861,11 @@ Lockfile:
     integrity sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==
     dependencies:
       safe-buffer "~5.2.0"
+  
+  string_decoder@~0.10.x:
+    version "0.10.31"
+    resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-0.10.31.tgz#62e203bc41766c6c28c9fc84301dab1c5310fa94"
+    integrity sha1-YuIDvEF2bGwoyfyEMB2rHFMQ+pQ=
   
   string_decoder@~1.1.1:
     version "1.1.1"
@@ -2950,6 +3002,14 @@ Lockfile:
     version "0.2.0"
     resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
     integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
+  
+  through2@^0.6.3:
+    version "0.6.5"
+    resolved "https://registry.yarnpkg.com/through2/-/through2-0.6.5.tgz#41ab9c67b29d57209071410e1d7a7a968cd3ad48"
+    integrity sha1-QaucZ7KdVyCQcUEOHXp6lozTrUg=
+    dependencies:
+      readable-stream ">=1.0.33-1 <1.1.0-0"
+      xtend ">=4.0.0 <4.1.0-0"
   
   to-readable-stream@^1.0.0:
     version "1.0.0"
@@ -3196,6 +3256,16 @@ Lockfile:
     version "4.0.0"
     resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-4.0.0.tgz#4bc8d9984403696225ef83a1573cbbcb4e79db13"
     integrity sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==
+  
+  "xtend@>=4.0.0 <4.1.0-0":
+    version "4.0.2"
+    resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
+    integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
+  
+  xterm@*, xterm@^4.10.0:
+    version "4.10.0"
+    resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.10.0.tgz#fc4f554e3e718aff9b83622e858e64b0953067bb"
+    integrity sha512-Wn66I8YpSVkgP3R95GjABC6Eb21pFfnCSnyIqKIIoUI13ohvwd0KGVzUDfyEFfSAzKbPJfrT2+vt7SfUXBZQKQ==
   
   y18n@^5.0.5:
     version "5.0.5"
