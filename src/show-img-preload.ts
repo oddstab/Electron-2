@@ -4,6 +4,7 @@ console.log(ipcRenderer);
 
 ipcRenderer.on("get-img", (e, val) => {
   console.log(e, val);
+  alert(typeof val);
 });
 
 // let myimg = "123";

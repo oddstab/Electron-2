@@ -281,39 +281,11 @@ readFileEl.addEventListener("dragenter", () => {
   }
 });
 
-readFileEl.addEventListener("dragexit", () => {
-  readFileEl.querySelector("p").classList.remove("active");
-});
-
 readFileEl.addEventListener("drop", (e) => {
   e.preventDefault();
   e.stopPropagation();
 
   readFileEl.querySelector("p").classList.remove("active");
-  let file = fs.readFileSync(e.dataTransfer.files[0].path);
 
-  console.log(file);
-  console.log(file.toString("base64"));
-
-  let i = new Image();
-  i.onload = (e) => {
-    console.log(i.width + "," + i.height);
-    let newWindow = new BrowserWindow({
-      width: i.width,
-      height: i.height,
-      autoHideMenuBar: true,
-      webPreferences: {
-        preload: path.join(__dirname, "./show-img-preload.js"),
-        nodeIntegration: true,
-      },
-    });
-
-    newWindow.loadFile(path.join(__dirname, "../src/show-img.html"));
-
-    newWindow.webContents.openDevTools();
-
-    ipcRenderer.send("send-img2main", "fff");
-  };
-
-  i.src = "data:image/png;base64, " + file.toString("base64");
+  ipcRenderer.send("show-img", e.dataTransfer.files[0].path);
 });
