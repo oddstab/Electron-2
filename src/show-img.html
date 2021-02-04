@@ -5,17 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      height: 100vh;
+    }
+
+    img {
+      width: 100%;
+    }
+  </style>
 </head>
 
 <body>
   <img src="">
   <script>
-    const { ipcRenderer } = require("electron");
-    console.log(ipcRenderer);
-
-    ipcRenderer.on("get-img", (e, val) => {
-      console.log(e, val);
-    });
+    const electron = require("electron").remote;
+    console.log("electron:", electron);
   </script>
 </body>
 

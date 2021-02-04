@@ -287,5 +287,10 @@ readFileEl.addEventListener("drop", (e) => {
 
   readFileEl.querySelector("p").classList.remove("active");
 
-  ipcRenderer.send("show-img", e.dataTransfer.files[0].path);
+  let files = Array.from(e.dataTransfer.files);
+
+  ipcRenderer.send(
+    "show-img",
+    files.map((f) => f.path)
+  );
 });
