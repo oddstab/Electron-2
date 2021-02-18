@@ -8,7 +8,8 @@
 </head>
 
 <body>
-  <div class="title-bar">
+  <div id="root"></div>
+  <!-- <div class="title-bar">
     <div class="title">
       <div class="icon"></div>
       <div class="text"></div>
@@ -23,7 +24,7 @@
     <fieldset>
       <legend>typescript出現export is not defined</legend>
       <div>
-        改成 require("xxx") 即可
+        改成 <code>require("xxx")</code> 即可
       </div>
     </fieldset>
 
@@ -37,13 +38,6 @@
       <legend>系統通知</legend>
       <button>通知~</button>
     </fieldset>
-
-    <!-- <fieldset id="run-cmd">
-      <legend>執行cmd命令</legend>
-      <button>執行</button>
-      <input type="text">
-      <div></div>
-    </fieldset> -->
 
     <fieldset id="open-dialog">
       <legend>開啟新視窗</legend>
@@ -97,7 +91,7 @@
       <p>拖入圖片</p>
     </fieldset>
   </div>
-  <div id="terminal-root"></div>
+  <div id="terminal-root"></div> -->
   <script>
     require("../dist/renderer.js")
   </script>

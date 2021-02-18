@@ -9,19 +9,18 @@ let mainWindow: BrowserWindow = null;
 let ptyProcess: pty.IPty = null;
 let newWindows: BrowserWindow[] = [];
 
-console.log("wow !!!!!");
-
 function createWindow() {
   mainWindow = new BrowserWindow({
     height: 800,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
+      backgroundThrottling: true,
     },
     backgroundColor: "red",
     width: 1200,
     show: false,
-    // frame: false,
+    frame: false,
     icon: path.join(__dirname, "../src/favicon.ico"),
   });
 
